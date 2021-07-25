@@ -1,0 +1,129 @@
+buildscript {
+    repositories {
+        maven { url = 'https://maven.minecraftforge.net' }
+        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.1.+', changing: true
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+    }
+}
+
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.spongepowered.mixin'
+
+group = 'fr.minemobs'
+version = '1.0-SNAPSHOT'
+archivesBaseName = 'minemobs-template'
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(8) // Mojang ships Java 8 to end users, so your mod should target Java 8.
+
+minecraft {
+    mappings channel: 'official', version: '1.16.5'
+    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+
+    // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            arg "-mixin.config=minemobs-template.mixins.json"
+
+            mods {
+                minemobstemplate {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            arg "-mixin.config=minemobs-template.mixins.json"
+
+            mods {
+                minemobstemplate {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            args '--mod', 'minemobstemplate', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+
+            mods {
+                minemobstemplate {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+mixin {
+    add sourceSets.main, "minemobs-template.refmap.json"
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+repositories {
+maven {
+        // TOP
+        name 'tterrag maven'
+        url = "https://maven.tterrag.com/"
+    }
+
+    maven {
+        // location of the maven that hosts JEI files
+        name = "Progwml6 maven"
+        url = "https://dvs1.progwml6.com/files/maven/"
+    }
+    
+    maven { url 'https://modmaven.dev/' }
+
+    maven {
+        name = "theillusivec4"
+        url = "https://maven.theillusivec4.top/"
+    }
+
+    maven { url = 'https://libraries.minecraft.net/' }
+    mavenCentral()
+    maven { url = 'https://maven.minecraftforge.net/' }	
+}
+
+dependencies {
+    runtimeOnly fg.deobf(project.dependencies.create("mcjty.theoneprobe:TheOneProbe-${top_version}") {
+        transitive = false
+    })
+
+    runtimeOnly fg.deobf("mezz.jei:jei-1.16.5:${jei_version}")
+   
+    minecraft 'net.minecraftforge:forge:1.16.5-36.2.1'
+    annotationProcessor 'org.spongepowered:mixin:0.8:processor'
+    
+}
+
+jar {
+    manifest {
+        attributes([
+                "Specification-Title"     : "minemobstemplate",
+                "Specification-Vendor"    : "minemobs",
+                "Specification-Version"   : "1", // We are version 1 of ourselves
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : project.version,
+                "Implementation-Vendor"   : "minemobs",
+                "MixinConfigs"            : "minemobs-template.mixins.json",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}
+
+jar.finalizedBy('reobfJar')
