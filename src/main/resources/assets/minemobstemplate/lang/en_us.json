@@ -1,0 +1,7 @@
+{
+	"block.minemobstemplate.example_block": "Example Block",
+
+	"item.minemobstemplate.example_item": "Example Item",
+	
+	"itemGroup.minemobstemplate": "Minemobs Template"
+}

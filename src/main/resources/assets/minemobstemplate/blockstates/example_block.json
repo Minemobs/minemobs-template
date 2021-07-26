@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "minemobstemplate:block/example_block"
+    }
+  }
+}

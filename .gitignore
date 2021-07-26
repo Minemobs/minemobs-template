@@ -1,3 +1,6 @@
+# Make sure to uncomment the line under this after you modified your properties. (yeah i know i'm bad at english)
+#gradle.properties
+
 # User-specific stuff
 .idea/
 
@@ -116,3 +119,4 @@ run/
 
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
 !gradle-wrapper.jar
+/src/generated/resources/.cache/
