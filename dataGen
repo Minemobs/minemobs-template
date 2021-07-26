@@ -1,0 +1,10 @@
+#!/bin/bash
+rm -rf src\generated\resources
+if [ -x "gradlew" ]
+then
+  echo "gradlew is executable"
+else
+  echo "gradlew is not executable"
+  chmod +x "gradlew"
+fi
+./gradlew "runData"
