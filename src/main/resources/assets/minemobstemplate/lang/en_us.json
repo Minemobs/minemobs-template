@@ -2,6 +2,9 @@
 	"block.minemobstemplate.example_block": "Example Block",
 
 	"item.minemobstemplate.example_item": "Example Item",
+	"item.minemobstemplate.example_fluid_bucket": "Example Bucket",
+
+	"fluid.minemobstemplate.example_fluid": "Example Fluid",
 	
 	"itemGroup.minemobstemplate": "Minemobs Template"
 }

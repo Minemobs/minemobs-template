@@ -15,6 +15,6 @@ public abstract class MixinMinecraft {
      */
     @Inject(method = "createTitle", at = @At("HEAD"))
     private void createTitle(CallbackInfoReturnable<String> cir) {
-        MinemobsTemplate.LOGGER.info(cir.getReturnValue());
+        //MinemobsTemplate.LOGGER.info(cir.getReturnValue());
     }
 }

@@ -23,7 +23,11 @@ import net.minecraftforge.registries.IForgeRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 @Mod("minemobstemplate")
 @Mod.EventBusSubscriber(modid = "minemobstemplate", bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -63,15 +67,34 @@ public class MinemobsTemplate {
 
         public static final ModItemGroup instance = new ModItemGroup(ItemGroup.TABS.length, MOD_ID);
 
+        private ItemStack item;
+
         public ModItemGroup(int index, String label) {
             super(index, label);
+        }
+
+        int tick = 0;
+
+        @OnlyIn(Dist.CLIENT)
+        @Override
+        public ItemStack getIconItem() {
+            if(tick != 20) {
+                tick++;
+                return item != null ? item : new ItemStack(ItemInit.EXAMPLE_ITEM.get());
+            }
+            //Todo: Fix BlockItem not added in the list
+            List<ItemStack> items = ItemInit.ITEMS.getEntries().stream()
+                    .map(item -> new ItemStack(item.get())).collect(Collectors.toList());
+            item = items.get(new Random().nextInt(items.size()));
+            tick = 0;
+            return item;
         }
 
         @SuppressWarnings("NullableProblems")
         @OnlyIn(Dist.CLIENT)
         @Override
         public ItemStack makeIcon() {
-            return new ItemStack(BlockInit.EXAMPLE_BLOCK.get());
+            return new ItemStack(ItemInit.EXAMPLE_ITEM.get());
         }
     }
 }
