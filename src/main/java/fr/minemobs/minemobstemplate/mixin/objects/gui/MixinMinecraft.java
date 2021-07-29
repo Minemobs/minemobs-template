@@ -1,4 +1,4 @@
-package fr.minemobs.minemobstemplate.mixin;
+package fr.minemobs.minemobstemplate.mixin.objects.gui;
 
 import fr.minemobs.minemobstemplate.MinemobsTemplate;
 import net.minecraft.client.Minecraft;

@@ -7,7 +7,7 @@
   "mixins": [
   ],
   "client": [
-    "MixinMinecraft"
+    "objects.gui.MixinMinecraft"
   ],
   "injectors": {
     "defaultRequire": 1
