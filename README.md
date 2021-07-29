@@ -1,2 +1,2 @@
 # minemobs-template
-A template for my forge mods
+A template for my forge mods.
