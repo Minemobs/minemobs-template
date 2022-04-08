@@ -1,0 +1,8 @@
+{
+  "before_building": [
+    "echo \"Hello World\""
+  ],
+  "after_building": [
+    "echo \"Build complete\""
+  ]
+}
